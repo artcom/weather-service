@@ -1,0 +1,18 @@
+{
+  "name": "weather-service",
+  "private": true,
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "engines": {
+    "node": "5.11.1"
+  },
+  "dependencies": {
+    "bunyan": "^1.7.0",
+    "mqtt-topping": "^0.6.2",
+    "oauth": "^0.9.14"
+  },
+  "devDependencies": {
+    "eslint": "^2.2.0"
+  }
+}
