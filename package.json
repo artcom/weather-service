@@ -2,7 +2,7 @@
   "name": "weather-service",
   "private": true,
   "scripts": {
-    "start": "node src/main.js"
+    "start": "node src/main.js | bunyan"
   },
   "engines": {
     "node": "5.11.1"
