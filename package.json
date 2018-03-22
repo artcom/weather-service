@@ -5,7 +5,7 @@
     "start": "node src/main.js | bunyan"
   },
   "engines": {
-    "node": "5.11.1"
+    "node": "9.8.0"
   },
   "dependencies": {
     "bunyan": "^1.8.10",
@@ -13,6 +13,6 @@
     "oauth": "^0.9.15"
   },
   "devDependencies": {
-    "eslint": "^3.19.0"
+    "eslint": "^4.18.2"
   }
 }
