@@ -1,0 +1,6 @@
+{
+  "extends": "artcom",
+  "rules": {
+    "import/no-commonjs": "off"
+  }
+}

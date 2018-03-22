@@ -1,5 +1,3 @@
-"use strict"
-
 const bunyan = require("bunyan")
 const topping = require("mqtt-topping").default
 
@@ -23,7 +21,7 @@ const log = bunyan.createLogger({
   }
 })
 
-const clientId = "WeatherService-" + Math.random().toString(16).substr(2, 8)
+const clientId = `WeatherService-${Math.random().toString(16).substr(2, 8)}`
 const mqtt = topping.connect(TCP_BROKER_URI, null, { clientId })
 
 mqtt.on("connect", () => log.info({ TCP_BROKER_URI }, "connected to broker"))

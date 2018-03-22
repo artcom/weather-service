@@ -8,7 +8,8 @@ const condition = {
   SUNNY: "sunny"
 }
 
-condition.fromCode = function(code) {
+
+condition.fromCode = function fromCode(code) {
   return {
     0: condition.WIND,
     1: condition.WIND,

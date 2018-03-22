@@ -1,5 +1,3 @@
-"use strict"
-
 const OAuth = require("oauth")
 const querystring = require("querystring")
 
@@ -19,7 +17,7 @@ module.exports = class YqlClient {
   }
 
   exec(query) {
-    const url = YQL_BASE_URL + "?" + querystring.stringify({ q: query, format: "json" })
+    const url = `${YQL_BASE_URL}?${querystring.stringify({ q: query, format: "json" })}`
 
     return new Promise((resolve, reject) => {
       this.oauth.get(url, "", "", (error, json) => {
