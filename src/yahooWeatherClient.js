@@ -1,7 +1,7 @@
 const OAuth = require("oauth")
 const querystring = require("querystring")
 
-const YQL_BASE_URL = "https://weather-ydn-yql.media.yahoo.com/forecastrss"
+const BASE_URL = "https://weather-ydn-yql.media.yahoo.com/forecastrss"
 
 const header = {
   "X-Yahoo-App-Id": "weather-service"
@@ -23,7 +23,7 @@ module.exports = class YahooWeatherClient {
   }
 
   queryWeather(woeid) {
-    const url = `${YQL_BASE_URL}?${querystring.stringify({ woeid, u: "c", format: "json" })}`
+    const url = `${BASE_URL}?${querystring.stringify({ woeid, u: "c", format: "json" })}`
 
     return new Promise((resolve, reject) => {
       this.oauth.get(url, "", "", (error, json) => {
