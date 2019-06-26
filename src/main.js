@@ -4,7 +4,7 @@ const topping = require("mqtt-topping").default
 const condition = require("./condition")
 const convert = require("./convert")
 const env = require("./env")
-const YqlClient = require("./yqlClient")
+const YahooWeatherClient = require("./yahooWeatherClient")
 
 const CHECK_INVERVAL_IN_MINUTES = 30
 
@@ -28,20 +28,16 @@ mqtt.on("connect", () => log.info({ TCP_BROKER_URI }, "connected to broker"))
 mqtt.on("close", () => log.warn({ TCP_BROKER_URI }, "disconnected from broker"))
 mqtt.on("error", () => log.error({ TCP_BROKER_URI }, "error connecting to broker"))
 
-const yql = new YqlClient(CLIENT_ID, CLIENT_SECRET)
+const weatherClient = new YahooWeatherClient(CLIENT_ID, CLIENT_SECRET)
 
 updateWeatherData()
 setInterval(updateWeatherData, CHECK_INVERVAL_IN_MINUTES * 60 * 1000)
 
 function updateWeatherData() {
-  loadWeatherData(LOCATION_WOEID)
+  weatherClient.queryWeather(LOCATION_WOEID)
     .then(transformWeatherData)
     .then(publishWeatherData)
     .catch(logError)
-}
-
-function loadWeatherData(woeid) {
-  return yql.exec(`select * from weather.forecast where woeid=${woeid}`)
 }
 
 function transformWeatherData(data) {
@@ -49,18 +45,18 @@ function transformWeatherData(data) {
 
   return {
     current: {
-      condition: condition.fromCode(data.item.condition.code),
-      temperature: convert.fahrenheitToCelsius(data.item.condition.temp),
-      humidity: parseFloat(data.atmosphere.humidity),
+      condition: condition.fromCode(data.current_observation.condition.code),
+      temperature: parseFloat(data.current_observation.condition.temperature),
+      humidity: parseFloat(data.current_observation.atmosphere.humidity),
       wind: {
-        speed: convert.mphToKmh(data.wind.speed),
-        direction: convert.degreesToCardinal(data.wind.direction)
+        speed: parseFloat(data.current_observation.wind.speed),
+        direction: convert.degreesToCardinal(data.current_observation.wind.direction)
       }
     },
-    forecast: data.item.forecast.map((item) => ({
+    forecast: data.forecasts.map((item) => ({
       condition: condition.fromCode(item.code),
-      low: convert.fahrenheitToCelsius(item.low),
-      high: convert.fahrenheitToCelsius(item.high)
+      low: parseFloat(item.low),
+      high: parseFloat(item.high)
     }))
   }
 }
