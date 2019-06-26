@@ -2,7 +2,6 @@ const bunyan = require("bunyan")
 const topping = require("mqtt-topping").default
 
 const condition = require("./condition")
-const convert = require("./convert")
 const env = require("./env")
 const YahooWeatherClient = require("./yahooWeatherClient")
 
@@ -50,7 +49,7 @@ function transformWeatherData(data) {
       humidity: parseFloat(data.current_observation.atmosphere.humidity),
       wind: {
         speed: parseFloat(data.current_observation.wind.speed),
-        direction: convert.degreesToCardinal(data.current_observation.wind.direction)
+        direction: degreesToCardinal(data.current_observation.wind.direction)
       }
     },
     forecast: data.forecasts.map((item) => ({
@@ -72,4 +71,9 @@ function publishWeatherData(data) {
 
 function logError(error) {
   log.error({ error })
+}
+
+function degreesToCardinal(degrees) {
+  const segment = Math.round(degrees / 45)
+  return ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"][segment]
 }
