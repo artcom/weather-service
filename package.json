@@ -11,14 +11,14 @@
     "node": "9.8.0"
   },
   "dependencies": {
-    "bunyan": "^1.8.10",
-    "mqtt-topping": "^0.7.1",
+    "bunyan": "^1.8.12",
+    "mqtt-topping": "^0.8.12",
     "oauth": "^0.9.15"
   },
   "devDependencies": {
-    "eslint": "^4.18.2",
-    "eslint-config-artcom": "^0.7.0",
-    "eslint-plugin-import": "^2.9.0",
+    "eslint": "^6.0.1",
+    "eslint-config-artcom": "^0.10.0",
+    "eslint-plugin-import": "^2.18.0",
     "nodemon": "^1.19.1"
   }
 }
