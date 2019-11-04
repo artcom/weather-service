@@ -16,9 +16,9 @@
     "oauth": "^0.9.15"
   },
   "devDependencies": {
-    "eslint": "^6.0.1",
-    "eslint-config-artcom": "^0.10.0",
-    "eslint-plugin-import": "^2.18.0",
-    "nodemon": "^1.19.1"
+    "eslint": "^6.6.0",
+    "eslint-config-artcom": "^0.10.1",
+    "eslint-plugin-import": "^2.18.2",
+    "nodemon": "^1.19.4"
   }
 }
