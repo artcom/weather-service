@@ -40,7 +40,7 @@ The service needs an OAuth 1.0 client ID and secret to authenticate with the Yah
 
 The service needs the following environment variables to be set:
 
-* `TCP_BROKER_URI` and `HTTP_BROKER_URI` to access the broker and the `WEATHER_TOPIC` to publish to
+* `TCP_BROKER_URI` to access the broker and the `WEATHER_TOPIC` to publish to
 * `CLIENT_ID` and `CLIENT_SECRET` to authenticate with Yahoo and the `LOCATION_WOEID` to define the location!
 
 ## Local Setup
