@@ -47,12 +47,18 @@ function transformWeatherData(data) {
       condition: condition.fromCode(data.current_observation.condition.code),
       temperature: parseFloat(data.current_observation.condition.temperature),
       humidity: parseFloat(data.current_observation.atmosphere.humidity),
+      sun: {
+        rise: data.current_observation.astronomy.sunrise,
+        set: data.current_observation.astronomy.sunset
+      },
       wind: {
         speed: parseFloat(data.current_observation.wind.speed),
         direction: degreesToCardinal(data.current_observation.wind.direction)
       }
     },
-    forecast: data.forecasts.map((item) => ({
+    forecast: data.forecasts.map(item => ({
+      day: item.day,
+      code: item.code,
       condition: condition.fromCode(item.code),
       low: parseFloat(item.low),
       high: parseFloat(item.high)
