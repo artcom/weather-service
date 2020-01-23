@@ -48,8 +48,8 @@ function transformWeatherData(data) {
       temperature: parseFloat(data.current_observation.condition.temperature),
       humidity: parseFloat(data.current_observation.atmosphere.humidity),
       sun: {
-        rise: data.current_observation.astronomy.sunrise,
-        set: data.current_observation.astronomy.sunset
+        rise: transformTime(data.current_observation.astronomy.sunrise),
+        set: transformTime(data.current_observation.astronomy.sunset)
       },
       wind: {
         speed: parseFloat(data.current_observation.wind.speed),
@@ -82,4 +82,17 @@ function logError(error) {
 function degreesToCardinal(degrees) {
   const segment = Math.round(degrees / 45)
   return ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"][segment]
+}
+
+function transformTime(time) {
+  let hours = Number(time.match(/^(\d+)/)[1])
+  const minutes = Number(time.match(/:(\d+)/)[1])
+  const AMPM = time.match(/\s(.*)$/)[1]
+  if (AMPM === "pm" && hours < 12) {hours = hours + 12}
+  if (AMPM === "am" && hours === 12) {hours = hours - 12}
+  let sHours = hours.toString()
+  let sMinutes = minutes.toString()
+  if (hours < 10) {sHours = `0${sHours}`}
+  if (minutes < 10) {sMinutes = `0${sMinutes}`}
+  return `${sHours}:${sMinutes}`
 }
