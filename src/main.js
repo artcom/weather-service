@@ -8,10 +8,14 @@ const YahooWeatherClient = require("./yahooWeatherClient")
 const CHECK_INVERVAL_IN_MINUTES = 30
 
 const TCP_BROKER_URI = env.getOrThrow("TCP_BROKER_URI")
-const CLIENT_ID = env.getOrThrow("CLIENT_ID")
-const CLIENT_SECRET = env.getOrThrow("CLIENT_SECRET")
-const WEATHER_TOPIC = env.getOrThrow("WEATHER_TOPIC")
-const LOCATION_WOEID = env.getOrThrow("LOCATION_WOEID")
+// const CLIENT_ID = env.getOrThrow("CLIENT_ID")
+// const CLIENT_SECRET = env.getOrThrow("CLIENT_SECRET")
+// const WEATHER_TOPIC = env.getOrThrow("WEATHER_TOPIC")
+const WEATHER_TOPIC = ""
+const CLIENT_ID = "dj0yJmk9TDdqYjQwZkRmeG1XJmQ9WVdrOU1FcFRhRFZOTkdrbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0zMA--"
+const CLIENT_SECRET = "884105c3ae5477142f0ede5eb43a7fe712313466"
+//const LOCATION_WOEID = env.getOrThrow("LOCATION_WOEID")
+const LOCATION_WOEID = "20066572"
 
 const log = bunyan.createLogger({
   name: "weather-service",
