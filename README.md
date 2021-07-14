@@ -1,6 +1,6 @@
 # Weather Service
 
-A backend service that retrieves weather data for a given location from the [Yahoo! Weather API](https://developer.yahoo.com/weather/) at a regular interval and publishes it to an MQTT broker.
+A backend service that retrieves weather data for a given location from the [openweathermap API](https://openweathermap.org/api) at a regular interval and publishes it to an MQTT broker.
 
 ## Provided Data
 
@@ -20,7 +20,7 @@ A backend service that retrieves weather data for a given location from the [Yah
 
 ### `<WEATHER_TOPIC>/forecast`
 
-Contains forecasts for 5 days where the first entry is for today, the second for tomorrow and so forth.
+Contains forecasts for 7 days where the first entry is for today, the second for tomorrow and so forth.
 
 ```javascript
 [
@@ -32,16 +32,13 @@ Contains forecasts for 5 days where the first entry is for today, the second for
 ]
 ```
 
-## Authentication
-
-The service needs an OAuth 1.0 client ID and secret to authenticate with the Yahoo! API. These credentials are issued by Yahoo! for registered applications.
-
 ## Configuration
 
 The service needs the following environment variables to be set:
 
 * `TCP_BROKER_URI` to access the broker and the `WEATHER_TOPIC` to publish to
-* `CLIENT_ID` and `CLIENT_SECRET` to authenticate with Yahoo and the `LOCATION_WOEID` to define the location!
+* `APP_ID` to authenticate with openweathermap
+* `LAT` and `LON` to define the location!
 
 ## Local Setup
 
@@ -52,3 +49,5 @@ npm install
 
 npm start
 ```
+
+
