@@ -30,7 +30,7 @@ condition.fromCode = function fromCode(code) {
     313: condition.RAIN,
     314: condition.RAIN,
     321: condition.RAIN,
-    500: condition.MIXED,
+    500: condition.RAIN,
     501: condition.RAIN,
     502: condition.RAIN,
     503: condition.RAIN,
