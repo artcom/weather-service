@@ -52,7 +52,7 @@ function transformWeatherData(data) {
         set: transformUnixTime(currentData.sunset)
       },
       wind: {
-        speed: Math.round(currentData.wind_speed),
+        speed: Math.round(mpsToKmh(currentData.wind_speed)),
         direction: degreesToCardinal(currentData.wind_deg)
       }
     },
@@ -87,5 +87,9 @@ function getDayFromUnixTime(timeStemp) {
   const date = new Date(timeStemp * 1000)
   const day = date.toLocaleDateString("en-EN", { weekday: "short" })
   return day
+}
+
+function mpsToKmh(mps) {
+  return mps * 3.6
 }
 
