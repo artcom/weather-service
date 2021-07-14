@@ -110,3 +110,10 @@ function transformUnixTime(timeStemp) {
   const formattedTime = `${hours}:${minutes}`
   return formattedTime
 }
+
+function getDayFromUnixTime(timeStemp) {
+  const date = new Date(timeStemp * 1000)
+  const day = date.toLocaleDateString("en-EN", { weekday: "short" })
+  return day
+}
+
