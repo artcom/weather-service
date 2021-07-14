@@ -62,12 +62,11 @@ function transformWeatherData(data) {
         direction: degreesToCardinal(currentData.wind_deg)
       }
     },
-    forecast: data.forecasts.map(item => ({
-      day: item.day,
-      code: item.code,
-      condition: condition.fromCode(item.code),
-      low: parseFloat(item.low),
-      high: parseFloat(item.high)
+    forecast: forecastData.map(day => ({
+      day: getDayFromUnixTime(day.dt),
+      condition: condition.fromCode(day.weather[0].id),
+      low: Math.round(day.temp.min),
+      high: Math.round(day.temp.max)
     }))
   }
 }
