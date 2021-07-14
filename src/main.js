@@ -29,7 +29,12 @@ mqtt.on("connect", () => log.info({ TCP_BROKER_URI }, "connected to broker"))
 mqtt.on("close", () => log.warn({ TCP_BROKER_URI }, "disconnected from broker"))
 mqtt.on("error", () => log.error({ TCP_BROKER_URI }, "error connecting to broker"))
 
-getData()
+main()
+
+async function main() {
+  const weatherData = await getData()
+  console.log(weatherData)
+}
 
 // const weatherClient = new YahooWeatherClient(CLIENT_ID, CLIENT_SECRET)
 
