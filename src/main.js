@@ -35,6 +35,8 @@ setInterval(updateWeatherData, CHECK_INVERVAL_IN_MINUTES * 60 * 1000)
 
 async function updateWeatherData() {
   const weatherData = await getData(APP_ID, LAT, LON, log)
+  log.info({ weatherData }, "received weather data")
+
   const transformedWeatherData = transformWeatherData(weatherData)
   publishWeatherData(transformedWeatherData)
 }
@@ -66,6 +68,7 @@ function transformWeatherData(data) {
 }
 
 function publishWeatherData(data) {
+  log.info({ data }, "publishing weather data")
   mqtt.publish(`${WEATHER_TOPIC}/current`, data.current)
   mqtt.publish(`${WEATHER_TOPIC}/forecast`, data.forecast)
 }
