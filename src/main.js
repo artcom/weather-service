@@ -5,7 +5,6 @@ const getData = require("./openWeatherMapClient")
 
 const condition = require("./condition")
 const env = require("./env")
-const YahooWeatherClient = require("./yahooWeatherClient")
 
 const CHECK_INVERVAL_IN_MINUTES = 30
 
@@ -51,14 +50,14 @@ function transformWeatherData(data) {
   return {
     current: {
       condition: condition.fromCode(currentData.weather[0].id),
-      temperature: parseFloat(currentData.temp),
-      humidity: parseFloat(currentData.humidity),
+      temperature: Math.round(currentData.temp),
+      humidity: Math.round(currentData.humidity),
       sun: {
         rise: transformUnixTime(currentData.sunrise),
         set: transformUnixTime(currentData.sunset)
       },
       wind: {
-        speed: parseFloat(currentData.wind_speed),
+        speed: Math.round(currentData.wind_speed),
         direction: degreesToCardinal(currentData.wind_deg)
       }
     },
@@ -87,19 +86,6 @@ function logError(error) {
 function degreesToCardinal(degrees) {
   const segment = Math.round(degrees / 45)
   return ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"][segment]
-}
-
-function transformTime(time) {
-  let hours = Number(time.match(/^(\d+)/)[1])
-  const minutes = Number(time.match(/:(\d+)/)[1])
-  const AMPM = time.match(/\s(.*)$/)[1]
-  if (AMPM === "pm" && hours < 12) {hours = hours + 12}
-  if (AMPM === "am" && hours === 12) {hours = hours - 12}
-  let sHours = hours.toString()
-  let sMinutes = minutes.toString()
-  if (hours < 10) {sHours = `0${sHours}`}
-  if (minutes < 10) {sMinutes = `0${sMinutes}`}
-  return `${sHours}:${sMinutes}`
 }
 
 function transformUnixTime(timeStemp) {
