@@ -12,9 +12,10 @@ const APP_ID = "063da9fd5923fe721ecfc32788ae8fcf"
 // For temperature in Celsius and wind speed in meter/sec, use units=metric
 // https://openweathermap.org/api/one-call-api#data
 
-const getData = async () => {
-  const data = await fetch(`${BASE_URL}/${API_CALL}?lat=${LAT}&lon=${LON}&units=${UNITS}&exclude=${EXCLUDE_DATA}&appid=${APP_ID}`)
+const getData = async (appId, lat, lon, log) => {
+  const data = await fetch(`${BASE_URL}/${API_CALL}?lat=${lat}&lon=${lon}&units=${UNITS}&exclude=${EXCLUDE_DATA}&appid=${appId}`)
     .then(response => response.json())
+    .catch(error => log.info(error))
   return data
 }
 
