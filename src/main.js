@@ -30,6 +30,7 @@ main()
 async function main() {
   const weatherData = await getData()
   console.log(weatherData)
+  const object = transformWeatherData(weatherData)
 }
 
 // const weatherClient = new YahooWeatherClient(CLIENT_ID, CLIENT_SECRET)
@@ -45,20 +46,20 @@ async function main() {
 // }
 
 function transformWeatherData(data) {
-  log.info({ data }, "received weather data")
-
+  const currentData = data.current
+  const forecastData = data.daily
   return {
     current: {
-      condition: condition.fromCode(data.current_observation.condition.code),
-      temperature: parseFloat(data.current_observation.condition.temperature),
-      humidity: parseFloat(data.current_observation.atmosphere.humidity),
+      condition: condition.fromCode(currentData.weather[0].id),
+      temperature: parseFloat(currentData.temp),
+      humidity: parseFloat(currentData.humidity),
       sun: {
-        rise: transformTime(data.current_observation.astronomy.sunrise),
-        set: transformTime(data.current_observation.astronomy.sunset)
+        rise: transformUnixTime(currentData.sunrise),
+        set: transformUnixTime(currentData.sunset)
       },
       wind: {
-        speed: parseFloat(data.current_observation.wind.speed),
-        direction: degreesToCardinal(data.current_observation.wind.direction)
+        speed: parseFloat(currentData.wind_speed),
+        direction: degreesToCardinal(currentData.wind_deg)
       }
     },
     forecast: data.forecasts.map(item => ({
