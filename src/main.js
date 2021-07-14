@@ -6,9 +6,14 @@ const getData = require("./openWeatherMapClient")
 const condition = require("./condition")
 const env = require("./env")
 
-const CHECK_INVERVAL_IN_MINUTES = 30
+const CHECK_INVERVAL_IN_MINUTES = 60
 
 const TCP_BROKER_URI = env.getOrThrow("TCP_BROKER_URI")
+const WEATHER_TOPIC = env.getOrThrow("WEATHER_TOPIC")
+const APP_ID = env.getOrThrow("APP_ID")
+const LAT = env.getOrThrow("LAT")
+const LON = env.getOrThrow("LON")
+
 
 const log = bunyan.createLogger({
   name: "weather-service",
@@ -24,25 +29,15 @@ mqtt.on("connect", () => log.info({ TCP_BROKER_URI }, "connected to broker"))
 mqtt.on("close", () => log.warn({ TCP_BROKER_URI }, "disconnected from broker"))
 mqtt.on("error", () => log.error({ TCP_BROKER_URI }, "error connecting to broker"))
 
-main()
+updateWeatherData()
+setInterval(updateWeatherData, CHECK_INVERVAL_IN_MINUTES * 60 * 1000)
 
-async function main() {
-  const weatherData = await getData()
-  console.log(weatherData)
-  const object = transformWeatherData(weatherData)
+
+async function updateWeatherData() {
+  const weatherData = await getData(APP_ID, LAT, LON, log)
+  const transformedWeatherData = transformWeatherData(weatherData)
+  publishWeatherData(transformedWeatherData)
 }
-
-// const weatherClient = new YahooWeatherClient(CLIENT_ID, CLIENT_SECRET)
-
-// updateWeatherData()
-// setInterval(updateWeatherData, CHECK_INVERVAL_IN_MINUTES * 60 * 1000)
-
-// function updateWeatherData() {
-//   weatherClient.queryWeather(LOCATION_WOEID)
-//     .then(transformWeatherData)
-//     .then(publishWeatherData)
-//     .catch(logError)
-// }
 
 function transformWeatherData(data) {
   const currentData = data.current
@@ -71,16 +66,8 @@ function transformWeatherData(data) {
 }
 
 function publishWeatherData(data) {
-  log.info({ data }, "publishing weather data")
-
-  return Promise.all([
-    mqtt.publish(`${WEATHER_TOPIC}/current`, data.current),
-    mqtt.publish(`${WEATHER_TOPIC}/forecast`, data.forecast)
-  ])
-}
-
-function logError(error) {
-  log.error({ error })
+  mqtt.publish(`${WEATHER_TOPIC}/current`, data.current)
+  mqtt.publish(`${WEATHER_TOPIC}/forecast`, data.forecast)
 }
 
 function degreesToCardinal(degrees) {
