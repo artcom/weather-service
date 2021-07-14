@@ -11,11 +11,7 @@ const TCP_BROKER_URI = env.getOrThrow("TCP_BROKER_URI")
 // const CLIENT_ID = env.getOrThrow("CLIENT_ID")
 // const CLIENT_SECRET = env.getOrThrow("CLIENT_SECRET")
 // const WEATHER_TOPIC = env.getOrThrow("WEATHER_TOPIC")
-const WEATHER_TOPIC = ""
-const CLIENT_ID = "dj0yJmk9TDdqYjQwZkRmeG1XJmQ9WVdrOU1FcFRhRFZOTkdrbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0zMA--"
-const CLIENT_SECRET = "884105c3ae5477142f0ede5eb43a7fe712313466"
-//const LOCATION_WOEID = env.getOrThrow("LOCATION_WOEID")
-const LOCATION_WOEID = "20066572"
+// const LOCATION_WOEID = env.getOrThrow("LOCATION_WOEID")
 
 const log = bunyan.createLogger({
   name: "weather-service",
@@ -31,17 +27,17 @@ mqtt.on("connect", () => log.info({ TCP_BROKER_URI }, "connected to broker"))
 mqtt.on("close", () => log.warn({ TCP_BROKER_URI }, "disconnected from broker"))
 mqtt.on("error", () => log.error({ TCP_BROKER_URI }, "error connecting to broker"))
 
-const weatherClient = new YahooWeatherClient(CLIENT_ID, CLIENT_SECRET)
+// const weatherClient = new YahooWeatherClient(CLIENT_ID, CLIENT_SECRET)
 
-updateWeatherData()
-setInterval(updateWeatherData, CHECK_INVERVAL_IN_MINUTES * 60 * 1000)
+// updateWeatherData()
+// setInterval(updateWeatherData, CHECK_INVERVAL_IN_MINUTES * 60 * 1000)
 
-function updateWeatherData() {
-  weatherClient.queryWeather(LOCATION_WOEID)
-    .then(transformWeatherData)
-    .then(publishWeatherData)
-    .catch(logError)
-}
+// function updateWeatherData() {
+//   weatherClient.queryWeather(LOCATION_WOEID)
+//     .then(transformWeatherData)
+//     .then(publishWeatherData)
+//     .catch(logError)
+// }
 
 function transformWeatherData(data) {
   log.info({ data }, "received weather data")
