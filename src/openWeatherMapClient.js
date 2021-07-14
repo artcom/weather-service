@@ -8,6 +8,10 @@ const EXCLUDE_DATA = "hourly,minutely,alerts"
 const UNITS = "metric"
 const APP_ID = "063da9fd5923fe721ecfc32788ae8fcf"
 
+// For temperature in Fahrenheit and wind speed in miles/hour, use units=imperial
+// For temperature in Celsius and wind speed in meter/sec, use units=metric
+// https://openweathermap.org/api/one-call-api#data
+
 const getData = async () => {
   const data = await fetch(`${BASE_URL}/${API_CALL}?lat=${LAT}&lon=${LON}&units=${UNITS}&exclude=${EXCLUDE_DATA}&appid=${APP_ID}`)
     .then(response => response.json())
