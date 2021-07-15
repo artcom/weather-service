@@ -6,7 +6,7 @@ const getData = require("./openWeatherMapClient")
 const condition = require("./condition")
 const env = require("./env")
 
-const CHECK_INVERVAL_IN_MINUTES = 60
+const CHECK_INVERVAL_IN_MINUTES = 30
 
 const TCP_BROKER_URI = env.getOrThrow("TCP_BROKER_URI")
 const WEATHER_TOPIC = env.getOrThrow("WEATHER_TOPIC")
