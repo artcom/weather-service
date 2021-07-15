@@ -2,6 +2,12 @@
 
 A backend service that retrieves weather data for a given location from the [openweathermap API](https://openweathermap.org/api) at a regular interval and publishes it to an MQTT broker.
 
+### License
+
+The openweathermap API is licensed under the terms of the [Creative Commons Attribution-ShareAlike 4.0 International licence (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
+
+The openweathermap data and database are open and licensed by the [Open Data Commons Open Database License (ODbL)](https://opendatacommons.org/licenses/odbl/).
+
 ## Provided Data
 
 ### `<WEATHER_TOPIC>/current`
@@ -51,3 +57,4 @@ npm start
 ```
 
 
+<!-- staging WEATHER_TOPIC="services/weather2/bonn" APP_ID="063da9fd5923fe721ecfc32788ae8fcf" LAT="50.737" LON="7.098" npm run start -->
