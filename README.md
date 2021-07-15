@@ -55,6 +55,3 @@ npm install
 
 npm start
 ```
-
-
-<!-- staging WEATHER_TOPIC="services/weather2/bonn" APP_ID="063da9fd5923fe721ecfc32788ae8fcf" LAT="50.737" LON="7.098" npm run start -->
