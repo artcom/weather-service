@@ -75,7 +75,7 @@ function publishWeatherData(data) {
 
 function degreesToCardinal(degrees) {
   const segment = Math.round(degrees / 45)
-  return ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"][segment]
+  return ["S", "SW", "W", "NW", "N", "NE", "E", "SE", "S"][segment]
 }
 
 function transformUnixTime(timeStemp) {
