@@ -13,7 +13,7 @@
   "dependencies": {
     "bunyan": "^1.8.12",
     "mqtt-topping": "^0.8.12",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "oauth": "^0.9.15"
   },
   "devDependencies": {
